@@ -55,7 +55,7 @@ public class App {
 			if (scanner.hasNextInt()) {
 				int number = scanner.nextInt();
 				if (number <= 0 || number >= 4) {
-					System.out.println("【エラー】入力できるのは「１～３」です");
+					System.out.println("***エラー：入力できるのは「１～３」です***");
 					continue;
 				} else {
 					return number;
@@ -148,6 +148,7 @@ public class App {
 						System.out.println();
 
 						String input = scanner.next();
+						//１文字入力NGチェック文追加(length)
 						char x_input = input.charAt(1);
 						char y_input = input.charAt(0);
 						int[] input_coordinate = board.receive(x_input, y_input);
@@ -170,19 +171,19 @@ public class App {
 
 		}
 		//ゲーム終了、勝敗を宣言
-		System.out.println("対戦終了");
+		System.out.println("***対戦終了***");
 		board.feature();
 		player = true;
 		int black = board.countBlack();
 		int white = board.countWhite();
-		String result = null;
-		System.out.println("●：" + black + "個");
-		System.out.println("○：" + white + "個");
+		String result;
+		System.out.println("***●：" + black + "個***");
+		System.out.println("***○：" + white + "個***");
 		if (black > white) {
-			System.out.println(play.indicateOrder(player) + "(●)の勝ち！");
+			System.out.println("***"+play.indicateOrder(player) + "(●)の勝ち！***");
 			result = "win";
 		} else if (white > black) {
-			System.out.println(play.indicateOrder(!player) + "(○)の勝ち！");
+			System.out.println("***"+play.indicateOrder(!player) + "(○)の勝ち！***");
 			result = "lose";
 		} else {
 			System.out.println("引き分け！");
@@ -230,8 +231,9 @@ public class App {
 			bw.write("Wins: " + wins + "\n");
 			bw.write("Loses: " + loses + "\n");
 			bw.write("Draws: " + draws);
+			System.out.println("***勝敗記録を保存しました***");
 		} catch (Exception e) {
-			System.out.println("成績の保存に失敗しました。");
+			System.out.println("***成績の保存に失敗しました***");
 			e.printStackTrace();
 		}
 	}
@@ -245,7 +247,7 @@ public class App {
 				System.out.println(line);
 			}
 		} catch (Exception e) {
-			System.out.println("成績の読み込みに失敗しました。");
+			System.out.println("***成績の読み込みに失敗しました***");
 			e.printStackTrace();
 		}
 	}
