@@ -39,7 +39,7 @@ public class App {
 				Title();
 			}
 			if (end == 2) {
-				System.out.println("***お疲れさまでした！");
+				System.out.println("***お疲れさまでした！***");
 				break;
 			}
 		}
