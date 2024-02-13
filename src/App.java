@@ -46,7 +46,7 @@ public class App {
 	}
 
 	public static void Title() {
-		System.out.println("***１：始める　２：戦績　３：終わり***");
+		System.out.println("***１：始める　２：前回の勝敗　３：終わり***");
 	}
 
 	private static int oneselfUser() {//選択肢
@@ -149,6 +149,10 @@ public class App {
 
 						String input = scanner.next();
 						//１文字入力NGチェック文追加(length)
+						if(input.length() != 2) {
+							System.out.println("***２文字で入力してください***");
+							continue;
+						}
 						char x_input = input.charAt(1);
 						char y_input = input.charAt(0);
 						int[] input_coordinate = board.receive(x_input, y_input);
@@ -196,8 +200,7 @@ public class App {
 	private static void saveResultsToFile(String result) {// 現在の戦績を読み込み
 
 		int wins = 0, loses = 0, draws = 0;
-		try (BufferedReader br = new BufferedReader(
-				new InputStreamReader(new FileInputStream(results_file), "UTF-8"))) {
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(results_file), "UTF-8"))) {
 			String line;
 			while ((line = br.readLine()) != null) {
 				if (line.startsWith("Wins: ")) {
@@ -226,8 +229,7 @@ public class App {
 		}
 
 		// 更新した戦績をファイルに保存
-		try (BufferedWriter bw = new BufferedWriter(
-				new OutputStreamWriter(new FileOutputStream(results_file), "UTF-8"))) {
+		try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(results_file),"UTF-8"))) {
 			bw.write("Wins: " + wins + "\n");
 			bw.write("Loses: " + loses + "\n");
 			bw.write("Draws: " + draws);
@@ -240,8 +242,7 @@ public class App {
 
 	private static void showResults() {
 		// 成績をファイルから読み込んで表示
-		try (BufferedReader br = new BufferedReader(
-				new InputStreamReader(new FileInputStream(results_file), "UTF-8"))) {
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(results_file), "UTF-8"))) {
 			String line;
 			while ((line = br.readLine()) != null) {
 				System.out.println(line);
