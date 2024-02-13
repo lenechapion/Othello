@@ -1,3 +1,4 @@
+
 public class Stone {
 	private String State;//黒=● ,白=○ 空=・
 	private int x;

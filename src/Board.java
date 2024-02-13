@@ -69,13 +69,14 @@ public class Board {
 		String not_mine = play.color(!player);
 
 		for (int i = 0; i < result.size(); i++) {
-			int[] rev_stone = result.get(i);
+			int[] rev_stone = result.get(i);//rev:回転
 			int rev_x = rev_stone[0];
 			int rev_y = rev_stone[1];
 
 			if (rev_x == x && rev_y == y) {
 				putStone(rev_x, rev_y, mine);
 
+				//方向
 				for (int[] dir : direction) {
 					int search_x = rev_x;
 					int search_y = rev_y;
@@ -91,6 +92,7 @@ public class Board {
 						}
 						int search_id = search_y * 8 + search_x;
 
+						//となりの石
 						Stone neighboring_stone = stonelist.get(search_id);
 						String neighboring_state = neighboring_stone.getState();
 

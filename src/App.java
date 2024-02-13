@@ -46,7 +46,7 @@ public class App {
 	}
 
 	public static void Title() {
-		System.out.println("***１：始める　２：前回の勝敗　３：終わり***");
+		System.out.println("***１：始める　２：前回の勝敗　３：終わる***");
 	}
 
 	private static int oneselfUser() {//選択肢
@@ -148,7 +148,7 @@ public class App {
 						System.out.println();
 
 						String input = scanner.next();
-						//１文字入力NGチェック文追加(length)
+						//１文字入力NGチェック文
 						if(input.length() != 2) {
 							System.out.println("***２文字で入力してください***");
 							continue;
@@ -197,18 +197,18 @@ public class App {
 
 	}
 
-	private static void saveResultsToFile(String result) {// 現在の戦績を読み込み
+	private static void saveResultsToFile(String result) {// 前回の勝敗結果を読み込み
 
-		int wins = 0, loses = 0, draws = 0;
+		int win = 0, lose = 0, draw = 0;
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(results_file), "UTF-8"))) {
 			String line;
 			while ((line = br.readLine()) != null) {
-				if (line.startsWith("Wins: ")) {
-					wins = Integer.parseInt(line.substring(6));
-				} else if (line.startsWith("Losses: ")) {
-					loses = Integer.parseInt(line.substring(8));
-				} else if (line.startsWith("Draws: ")) {
-					draws = Integer.parseInt(line.substring(7));
+				if (line.startsWith("Win: ")) {
+					win = Integer.parseInt(line.substring(6));
+				} else if (line.startsWith("Lose: ")) {
+					lose = Integer.parseInt(line.substring(8));
+				} else if (line.startsWith("Draw: ")) {
+					draw = Integer.parseInt(line.substring(7));
 				}
 			}
 		} catch (Exception e) {
@@ -218,24 +218,24 @@ public class App {
 		// 成績を更新
 		switch (result) {
 		case "win":
-			wins++;
+			win++;
 			break;
 		case "lose":
-			loses++;
+			lose++;
 			break;
 		case "draw":
-			draws++;
+			draw++;
 			break;
 		}
 
 		// 更新した戦績をファイルに保存
 		try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(results_file),"UTF-8"))) {
-			bw.write("Wins: " + wins + "\n");
-			bw.write("Loses: " + loses + "\n");
-			bw.write("Draws: " + draws);
+			bw.write("Win: " + win + "\n");
+			bw.write("Lose: " + lose + "\n");
+			bw.write("Draw: " + draw);
 			System.out.println("***勝敗記録を保存しました***");
 		} catch (Exception e) {
-			System.out.println("***成績の保存に失敗しました***");
+			System.out.println("***記録の保存に失敗しました***");
 			e.printStackTrace();
 		}
 	}
@@ -248,7 +248,7 @@ public class App {
 				System.out.println(line);
 			}
 		} catch (Exception e) {
-			System.out.println("***成績の読み込みに失敗しました***");
+			System.out.println("***記録の読み込みに失敗しました***");
 			e.printStackTrace();
 		}
 	}
